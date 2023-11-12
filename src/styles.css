@@ -1,0 +1,104 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column; /* Diese Eigenschaft wurde hinzugefügt, um den Button über dem Spielbrett anzuzeigen */
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+}
+
+.wrapper {
+    margin: auto;
+}
+
+#gameBoard {
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background-color: #e1e1e1;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.path {
+    background-color: #87CEEB; /* Gökyüzü mavi */
+    border: 1px solid #4682B4; /* Daha koyu çelik mavi */
+}
+
+.cell-id {
+    position: absolute;
+    opacity: 0.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 100%;
+    height: 100%;
+    font-size: 10px;
+}
+
+.finish {
+    background-color: #FFD700; /* Altın */
+    border: 1px solid #6b5215; /* Altın */
+}
+
+#character {
+    position: relative;
+    transition: top 0.5s, left 0.5s; /* Hier wird die Animation hinzugefügt */
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    background-color: #4a90e2;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #357ab7;
+}
+
+.dice-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.moveButton {
+    padding: 10px;
+    margin-right: 10px; /* zar sayısı ile arasında biraz boşluk bırakmak için */
+}
+
+.dice-result {
+    font-size: 20px; /* Font boyutunu ayarlayabilirsiniz */
+}
