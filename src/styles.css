@@ -1,5 +1,114 @@
+.dark-mode {
+    --bg-color: #282c34; /* Dunkler Hintergrund */
+    --text-color: #f8f8f2; /* Heller Text */
+    --primary-color: #6272a4; /* Primärfarbe für Elemente */
+    --secondary-color: #44475a; /* Sekundärfarbe für Elemente */
+    --border-color: #bd93f9; /* Grenzfarbe */
+    --shadow-color: rgba(255, 255, 255, 0.1); /* Schattenfarbe */
+}
+
+.dark-mode body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.dark-mode .wrapper,
+.dark-mode #gameBoard,
+.dark-mode .cell,
+.dark-mode .command,
+.dark-mode .command-form input,
+.dark-mode .command-form select,
+.dark-mode .command-list ul li {
+    background-color: var(--secondary-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.dark-mode .path {
+    background-color: var(--primary-color);
+}
+
+.dark-mode .finish {
+    background-color: #50fa7b; /* Helle Farbe für 'finish' */
+}
+
+.dark-mode button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.dark-mode button:hover {
+    background-color: var(--border-color);
+}
+
+.dark-mode .dice-result,
+.dark-mode .command h2,
+.dark-mode .command p {
+    color: var(--text-color);
+}
+
+.dark-mode .cell-id {
+    color: var(--text-color);
+    opacity: 0.5; /* Höhere Sichtbarkeit im dunklen Modus */
+}
+
+.dark-mode .cell:hover {
+    background-color: var(--border-color);
+}
+
+.dark-mode #character {
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+
+/* Rajdhani-Bold */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Rajdhani-Light */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-Light.ttf') format('truetype');
+    font-weight: 300; /* 300 ist die übliche Angabe für 'light' Schriftarten */
+    font-style: normal;
+}
+
+/* Rajdhani-Medium */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-Medium.ttf') format('truetype');
+    font-weight: 500; /* 500 ist die übliche Angabe für 'medium' Schriftarten */
+    font-style: normal;
+}
+
+/* Rajdhani-Regular */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Rajdhani-SemiBold */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-SemiBold.ttf') format('truetype');
+    font-weight: 600; /* 600 ist die übliche Angabe für 'semibold' Schriftarten */
+    font-style: normal;
+}
+
+/* Anwendung der Schriftart auf die gesamte Anwendung */
+
+* {
+    font-family: 'Rajdhani', sans-serif !important;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-weight: 600;
     background-color: #f4f4f4;
     display: flex;
     flex-direction: column; /* Diese Eigenschaft wurde hinzugefügt, um den Button über dem Spielbrett anzuzeigen */
@@ -7,6 +116,21 @@ body {
     align-items: flex-start;
     height: 100vh;
     margin: 0;
+    --u: 2.5vmin;
+    --c1: #ddd;
+    --c2: #ccc;
+    --pz: calc(var(--u) * 0.65), #fff0 calc(calc(var(--u) * 0.65) + 1px);
+    --gp: 50%/ calc(var(--u) * 10) calc(var(--u) * 10);
+    background: radial-gradient(circle at 55% 25%, var(--c2) var(--pz)) var(--gp),
+    radial-gradient(circle at 75% 45%, var(--c2) var(--pz)) var(--gp),
+    radial-gradient(circle at 5% 75%, var(--c2) var(--pz)) var(--gp),
+    radial-gradient(circle at 25% 55%, var(--c2) var(--pz)) var(--gp),
+    radial-gradient(circle at 55% 75%, var(--c1) var(--pz)) var(--gp),
+    radial-gradient(circle at 75% 95%, var(--c1) var(--pz)) var(--gp),
+    radial-gradient(circle at 5% 25%, var(--c1) var(--pz)) var(--gp),
+    radial-gradient(circle at 25% 5%, var(--c1) var(--pz)) var(--gp),
+    conic-gradient(from 0deg at 50% 50%, var(--c1) 0 25%, var(--c2) 0 50%, var(--c1) 0 75%, var(--c2) 0 100%) var(--gp);
+
 }
 
 .wrapper {
@@ -14,6 +138,7 @@ body {
 }
 
 #gameBoard {
+    position: relative;
     width: 500px;
     height: 500px;
     display: grid;
@@ -73,10 +198,10 @@ body {
 }
 
 button {
-    padding: 10px 15px;
+    padding: 2px 15px;
     font-size: 16px;
     border: none;
-    background-color: #4a90e2;
+    background-color: #F8981D;
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
@@ -101,4 +226,120 @@ button:hover {
 
 .dice-result {
     font-size: 20px; /* Font boyutunu ayarlayabilirsiniz */
+}
+
+
+.board-wrapper {
+    display: flex;
+
+}
+
+.command {
+    background: #E1E1E1;
+    border: solid 10px #fff;
+    margin-right: 2px;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.command h2 {
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 0;
+}
+.command p {
+    font-size: 12px;
+    margin: 0;
+    padding: 8px 0;
+}
+
+.command-form {
+    display: flex;
+}
+
+.command-form input,
+.command-form select {
+    border: solid 1px #ccc;
+    background: #ffffff;
+    padding:  2px;
+    font-weight: bold;
+    width: 50px;
+}
+.command-form input {
+    text-align: center;
+    font-size: 16px;
+}
+.command-form select {
+    width: 70px;
+    padding-right: 5px;
+}
+.command-form label {
+    font-size: 12px;
+}
+.command-form label span {
+    font-size: 10px;
+}
+
+.command-list {
+    margin-top: 16px;
+}
+
+.command-list ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    height: 250px;
+    overflow: auto;
+}
+.command-list ul li {
+    padding: 5px;
+    margin: 1px 0;
+    list-style: none;
+    background: #fff;
+    font-size: 14px;
+
+}
+.command-list ul li.step.checked {
+    background: darkseagreen;
+}
+.command-list ul li.step.error {
+    background: #ff0000;
+    color: #fff;
+}
+.command-list ul li.step.checked:before {
+    background-image: url("/static/checked.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 20px;
+    background: darkseagreen;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+.reset-game-btn,
+.start-game-btn {
+    padding: 2px;
+    margin-top: 10px;
+    width: 48%;
+}
+
+.jupo {
+    position: absolute;
+    z-index: 1000;
+    width: 120px;
+    right: 0;
+    top: -131px;
+}
+
+.slogan {
+    position: absolute;
+    z-index: 1000;
+    width: 230px;
+    left: -270px;
+    top: -91px;
 }

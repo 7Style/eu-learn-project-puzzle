@@ -1,9 +1,18 @@
-import {GameBoard} from './modules/create-game.js';
+import {Game} from './modules/game.js';
+import {Commands} from "./modules/commands";
+import {Store} from "./modules/store";
 
+// create a new instance of the Store class
+const store = new Store('jupo_game');
 
-const gBoard = new GameBoard();
-gBoard.create();
-gBoard.createPath()
+// Create a new instance of the GameBoard class
+const gameBoard = new Game(store);
+gameBoard.create();
+
+// Create a new instance of the LevelsLogic class
+const levelLogic = new Commands(gameBoard, store);
+levelLogic.run();
+
 
 
 

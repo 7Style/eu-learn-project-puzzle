@@ -8,14 +8,45 @@
 </head>
 <body>
 <div class="wrapper">
-    <div class="dice-section">
-        <label for="step">
-            <input id="step" type="text" />
-        </label>
-        <button class="moveButton">Ilerle</button>
-        <div class="dice-result"></div>
+    <div class="board-wrapper">
+        <div id="commands" class="command">
+            <h2>Level 1</h2>
+            <p>
+                Please create your path to start the game. You need to ensure that the game character JupoRob reaches
+                the finish, based on the path you have created, without straying off the path
+            </p>
+            <div class="command-form">
+                <label for="count">
+                    <span class="form-label">Count</span>
+                    <input max="5" min="1" id="count" type="number" value="1"/>
+                </label>
+                <label for="direction">
+                    <span>Direction</span>
+                    <select id="direction">
+                        <option value="right">Right > </option>
+                        <option value="left">Left < </option>
+                        <option value="down">Down v </option>
+                        <option value="up">Up ^</option>
+                    </select>
+                </label>
+                <label for="add-button">
+                    <span>&nbsp;</span>
+                    <button id="add-button">Add</button>
+                </label>
+            </div>
+            <div id="command-list" class="command-list">
+                <ul></ul>
+                <div class="action-buttons">
+                    <button id="reset-button" class="reset-game-btn">Reset</button>
+                    <button id="start-game-btn" class="start-game-btn">Start Game</button>
+                </div>
+            </div>
+        </div>
+        <div id="gameBoard" class="game-board">
+            <img src="/static/jupo.png" alt="jupo" class="jupo"/>
+            <img src="/static/slogan.png" alt="jupo" class="slogan"/>
+        </div>
     </div>
-    <div id="gameBoard"></div>
 </div>
 <script src="bundle.js"></script>
 </body>

@@ -2,7 +2,7 @@
   "name": "labirent",
   "version": "1.0.0",
   "description": "",
-  "main": "src/modules/create-game.js",
+  "main": "src/modules/game.js",
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack"
