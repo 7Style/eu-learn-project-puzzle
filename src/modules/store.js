@@ -10,20 +10,35 @@ export class Store {
 
     storeCommands(commands) {
         console.log('storeCommands', commands);
-        this._storage().setItem(this.getCommandKey(), JSON.stringify(commands));
+        this._storage().setItem(this._getStorageKey(Config.COMMAND_STORAGE_KEY), JSON.stringify(commands));
     }
 
     getCommands() {
-        return JSON.parse(this._storage().getItem(this.getCommandKey()) || '[]');
+        return JSON.parse(this._storage().getItem(this._getStorageKey(Config.COMMAND_STORAGE_KEY)) || '[]');
     }
 
-    getCommandKey() {
-        return this.namespace + '_' + Config.COMMAND_STORAGE_KEY;
+    storeLevel(level) {
+        this._storage().setItem(this._getStorageKey(Config.LEVEL_STORAGE_KEY), level);
     }
 
+    getLevel(level) {
+        return this._storage().getItem(this._getStorageKey(Config.LEVEL_STORAGE_KEY));
+    }
+
+    clearLevel() {
+        this._storage().removeItem(this._getStorageKey(Config.LEVEL_STORAGE_KEY));
+    }
+
+    clearCommands() {
+        this._storage().removeItem(this._getStorageKey(Config.COMMAND_STORAGE_KEY));
+    }
+
+    _getStorageKey(key) {
+        return this.namespace + '_' + key;
+    }
 
     _storage() {
-        return window.localStorage;
+        return localStorage;
     }
 
 }

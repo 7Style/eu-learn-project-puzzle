@@ -1,66 +1,3 @@
-.dark-mode {
-    --bg-color: #282c34; /* Dunkler Hintergrund */
-    --text-color: #f8f8f2; /* Heller Text */
-    --primary-color: #6272a4; /* Primärfarbe für Elemente */
-    --secondary-color: #44475a; /* Sekundärfarbe für Elemente */
-    --border-color: #bd93f9; /* Grenzfarbe */
-    --shadow-color: rgba(255, 255, 255, 0.1); /* Schattenfarbe */
-}
-
-.dark-mode body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
-
-.dark-mode .wrapper,
-.dark-mode #gameBoard,
-.dark-mode .cell,
-.dark-mode .command,
-.dark-mode .command-form input,
-.dark-mode .command-form select,
-.dark-mode .command-list ul li {
-    background-color: var(--secondary-color);
-    border-color: var(--border-color);
-    color: var(--text-color);
-}
-
-.dark-mode .path {
-    background-color: var(--primary-color);
-}
-
-.dark-mode .finish {
-    background-color: #50fa7b; /* Helle Farbe für 'finish' */
-}
-
-.dark-mode button {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-}
-
-.dark-mode button:hover {
-    background-color: var(--border-color);
-}
-
-.dark-mode .dice-result,
-.dark-mode .command h2,
-.dark-mode .command p {
-    color: var(--text-color);
-}
-
-.dark-mode .cell-id {
-    color: var(--text-color);
-    opacity: 0.5; /* Höhere Sichtbarkeit im dunklen Modus */
-}
-
-.dark-mode .cell:hover {
-    background-color: var(--border-color);
-}
-
-.dark-mode #character {
-    box-shadow: 0 2px 4px var(--shadow-color);
-}
-
-
 /* Rajdhani-Bold */
 @font-face {
     font-family: 'Rajdhani';
@@ -200,17 +137,18 @@ body {
 button {
     padding: 2px 15px;
     font-size: 16px;
-    border: none;
-    background-color: #F8981D;
-    color: #fff;
+    background-color: #FFD700;
+    color: #000;
     border-radius: 4px;
     cursor: pointer;
     outline: none;
+    font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: solid 1px #c89a28;
 }
 
 button:hover {
-    background-color: #357ab7;
+    color: #787676;
 }
 
 .dice-section {
@@ -239,9 +177,13 @@ button:hover {
     border: solid 10px #fff;
     margin-right: 2px;
     border-radius: 8px;
-    padding: 16px;
-    max-width: 200px;
+    padding: 10px;
+    max-width: 240px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.level-2 .command {
+    max-width: 340px;
 }
 
 .command h2 {
@@ -249,6 +191,7 @@ button:hover {
     margin: 0;
     margin-bottom: 0;
 }
+
 .command p {
     font-size: 12px;
     margin: 0;
@@ -263,36 +206,42 @@ button:hover {
 .command-form select {
     border: solid 1px #ccc;
     background: #ffffff;
-    padding:  2px;
+    padding: 2px;
     font-weight: bold;
     width: 50px;
 }
+
 .command-form input {
     text-align: center;
     font-size: 16px;
 }
+
 .command-form select {
     width: 70px;
     padding-right: 5px;
 }
+
 .command-form label {
     font-size: 12px;
 }
+
 .command-form label span {
     font-size: 10px;
 }
 
 .command-list {
     margin-top: 16px;
+    width: 240px;
 }
 
 .command-list ul {
     padding: 0;
     margin: 0;
     list-style: none;
-    height: 250px;
+    height: 310px;
     overflow: auto;
 }
+
 .command-list ul li {
     padding: 5px;
     margin: 1px 0;
@@ -301,13 +250,16 @@ button:hover {
     font-size: 14px;
 
 }
+
 .command-list ul li.step.checked {
     background: darkseagreen;
 }
+
 .command-list ul li.step.error {
     background: #ff0000;
     color: #fff;
 }
+
 .command-list ul li.step.checked:before {
     background-image: url("/static/checked.png");
     background-repeat: no-repeat;
@@ -321,19 +273,21 @@ button:hover {
     justify-content: space-between;
     margin-top: 16px;
 }
+
 .reset-game-btn,
 .start-game-btn {
     padding: 2px;
     margin-top: 10px;
     width: 48%;
+    display: none;
 }
 
 .jupo {
     position: absolute;
-    z-index: 1000;
-    width: 120px;
+    z-index: 1001;
+    width: 143px;
     right: 0;
-    top: -131px;
+    top: -158px;
 }
 
 .slogan {
@@ -342,4 +296,89 @@ button:hover {
     width: 230px;
     left: -270px;
     top: -91px;
+}
+
+.game-info-box {
+    position: absolute;
+    z-index: 1000;
+    width: 360px;
+    left: 0;
+    top: -149px;
+    background: #E1E1E1;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: solid 10px #fff;
+}
+
+.game-info-box h3 {
+    margin: 0;
+}
+
+.level-selector {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.timer-container {
+    font-size: 1.5em;
+    color: #d9534f;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    border-bottom: solid 1px #d9534f;
+}
+
+#timer {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.generate-path-btn {;
+    z-index: 10;
+    padding: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.command-remove {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    background: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.game-over-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-size: 5rem;
+    color: white;
 }

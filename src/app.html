@@ -10,12 +10,21 @@
 <div class="wrapper">
     <div class="board-wrapper">
         <div id="commands" class="command">
-            <h2>Level 1</h2>
-            <p>
-                Please create your path to start the game. You need to ensure that the game character JupoRob reaches
-                the finish, based on the path you have created, without straying off the path
-            </p>
-            <div class="command-form">
+            <div id="timer-container" class="timer-container hidden">
+                <span id="timer-label">Time:</span>
+                <span id="timer">0</span>&nbsp;seconds
+            </div>
+            <div class="level-selector">
+                <h2 id="level-headline">Level 1</h2>
+                <select id="level-selector">
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="3">Level 3</option>
+                    <option value="4">Level 4</option>
+                </select>
+            </div>
+
+            <div id="command-form" class="command-form">
                 <label for="count">
                     <span class="form-label">Count</span>
                     <input max="5" min="1" id="count" type="number" value="1"/>
@@ -23,9 +32,9 @@
                 <label for="direction">
                     <span>Direction</span>
                     <select id="direction">
-                        <option value="right">Right > </option>
-                        <option value="left">Left < </option>
-                        <option value="down">Down v </option>
+                        <option value="right">Right ></option>
+                        <option value="left">Left <</option>
+                        <option value="down">Down v</option>
                         <option value="up">Up ^</option>
                     </select>
                 </label>
@@ -36,6 +45,7 @@
             </div>
             <div id="command-list" class="command-list">
                 <ul></ul>
+                <button id="generate-path-btn" class="generate-path-btn hidden">Generate path</button>
                 <div class="action-buttons">
                     <button id="reset-button" class="reset-game-btn">Reset</button>
                     <button id="start-game-btn" class="start-game-btn">Start Game</button>
@@ -45,6 +55,7 @@
         <div id="gameBoard" class="game-board">
             <img src="/static/jupo.png" alt="jupo" class="jupo"/>
             <img src="/static/slogan.png" alt="jupo" class="slogan"/>
+            <div id="game-info-box" class="game-info-box"></div>
         </div>
     </div>
 </div>
