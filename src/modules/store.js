@@ -30,7 +30,7 @@ export class Store {
     }
 
     clearCommands() {
-        this._storage().removeItem(this._getStorageKey(Config.COMMAND_STORAGE_KEY));
+       // this._storage().removeItem(this._getStorageKey(Config.COMMAND_STORAGE_KEY));
     }
 
     _getStorageKey(key) {

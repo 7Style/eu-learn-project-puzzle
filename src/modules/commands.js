@@ -11,6 +11,7 @@ export class Commands {
         this.storeInstance = storeInstance
         this.gameBoardInstance = gameBoardInstance;
         this.getStoredCommands();
+        this._commands = [];
 
     }
 
@@ -32,7 +33,6 @@ export class Commands {
     }
 
     run() {
-        this.startGameButtonListener()
         this.renderCommands()
         this.resetButtonListener()
         this.addLevelSelectorListener()
@@ -61,6 +61,19 @@ export class Commands {
         element.addEventListener('click', () => {
             console.log('add button clicked');
             this.addCommand();
+        })
+    }
+
+    resetButtonListener() {
+        const element = this.domElements().resetButton;
+
+        if (!element) {
+            console.error('reset-button not found');
+            return;
+        }
+
+        element.addEventListener('click', () => {
+            window.location.reload();
         })
     }
 
@@ -97,20 +110,6 @@ export class Commands {
             this.gameBoardInstance.startGame();
         })
     }
-
-    resetButtonListener() {
-        const element = this.domElements().resetButton
-
-        if (!element) {
-            console.error('reset-button not found');
-            return;
-        }
-
-        element.addEventListener('click', () => {
-            this.reset();
-        })
-    }
-
     addCommand() {
         if (this.gameBoardInstance.level > 1 && this.gameBoardInstance.isTimeUp()) {
             console.log('Zeit ist abgelaufen, keine weiteren Befehle erlaubt.');
@@ -259,7 +258,9 @@ export class Commands {
         this.domElements().gameInfoBox.innerHTML = `<h3>${title}</h3><span>${text}</span>`;
     }
 
-
+    setCommands(commands) {
+        this.commands = commands;
+    }
 
     get commands() {
         return this._commands;

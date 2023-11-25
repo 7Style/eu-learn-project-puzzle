@@ -92,7 +92,6 @@ export class Level2 extends Game {
     createRandomPath() {
 
         this.pathCells = Config.PATHS_LEVEL_2
-
         return;
 
         const boardSize = 10;

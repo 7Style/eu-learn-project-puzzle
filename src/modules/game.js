@@ -11,6 +11,10 @@ export class Game {
         this.command = new Commands(this, this.store);
         this.level = storage.getLevel();
         this.command.addButtonListener();
+        this.command.startGameButtonListener()
+        this.command.resetButtonListener()
+        // todo: remove this
+        this.__debug();
     }
 
     create() {
@@ -38,6 +42,7 @@ export class Game {
         this.command.setGameInstructionsText(Config.LEVEL_INSTRUCTIONS[levelSelector].title, Config.LEVEL_INSTRUCTIONS[levelSelector].text);
     }
 
+
     createCharacter(cell) {
         const character = document.createElement('div');
         character.id = 'character';
@@ -63,6 +68,7 @@ export class Game {
                 this._validateInstructions(instructions, makeMove)
             }
         };
+        debugger;
         makeMove();
     }
 
@@ -70,7 +76,7 @@ export class Game {
 
         const gameOver = document.getElementById('gameOverOverlay');
 
-        if(gameOver){
+        if (gameOver) {
             return;
         }
 
@@ -88,11 +94,17 @@ export class Game {
         }, 3000);
 
         this.markCommandStepAsChecked(true);
+        this.reset();
+
+    }
+
+    reset() {
         this.currentPosition = 0;
         this.currentInstructionIndex = 0;
-        this._moveCharacter(this.currentPosition);
+        this.command.clearCommands();
         this.command.hideCommandActionButtons();
-
+        this.command.renderCommands();
+        this._moveCharacter(this.currentPosition);
     }
 
     markCommandStepAsChecked(error) {
@@ -120,6 +132,43 @@ export class Game {
         if (!this._getBoardContainer().contains(character)) {
             this._getBoardContainer().appendChild(character);
         }
+    }
+
+    generateCommandsFromPath(path) {
+        const commands = [];
+        let currentDirection = '';
+        let stepCount = 0;
+
+        for (let i = 1; i < path.length; i++) {
+            const currentPos = path[i - 1];
+            const nextPos = path[i];
+            const currentX = currentPos % 10;
+            const currentY = Math.floor(currentPos / 10);
+            const nextX = nextPos % 10;
+            const nextY = Math.floor(nextPos / 10);
+
+            let direction = '';
+            if (nextX > currentX) direction = 'right';
+            else if (nextX < currentX) direction = 'left';
+            else if (nextY > currentY) direction = 'down';
+            else if (nextY < currentY) direction = 'up';
+
+            if (direction !== currentDirection) {
+                if (stepCount > 0) {
+                    commands.push({direction: currentDirection, count: stepCount});
+                }
+                currentDirection = direction;
+                stepCount = 1;
+            } else {
+                stepCount++;
+            }
+        }
+
+        // Fügen Sie den letzten Befehl hinzu, wenn Schritte vorhanden sind
+        if (stepCount > 0) {
+            commands.push({direction: currentDirection, count: stepCount});
+        }
+        return commands;
     }
 
     _getBoardContainer() {
@@ -172,5 +221,21 @@ export class Game {
             this.currentInstructionIndex++;
             setTimeout(() => makeMove(), 1000);
         }
+    }
+
+    __debug() {
+        const element = document.getElementById('debug-button');
+        if (!element) {
+            return;
+        }
+        element.addEventListener('click', () => {
+            this.store._storage().removeItem(this.store._getStorageKey(Config.COMMAND_STORAGE_KEY));
+            const commands = this.generateCommandsFromPath(this.pathCells);
+            this.command.setCommands(commands);
+            this.store.storeCommands(commands)
+            this.generateCommandsFromPath(this.pathCells);
+            this.command.renderCommands();
+            this.startGame()
+        })
     }
 }
