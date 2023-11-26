@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="board-wrapper">
+        <div id="commands" class="command">
+            <div id="timer-container" class="timer-container hidden">
+                <span id="timer-label">Time:</span>
+                <span id="timer">0</span>&nbsp;seconds
+            </div>
+            <div class="level-selector">
+                <h2 id="level-headline">Level 1</h2>
+                <select id="level-selector">
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="3">Level 3</option>
+                    <option value="4">Level 4</option>
+                </select>
+            </div>
+
+            <div id="command-form" class="command-form">
+                <label for="count">
+                    <span class="form-label">Count</span>
+                    <input max="5" min="1" id="count" type="number" value="1"/>
+                </label>
+                <label for="direction">
+                    <span>Direction</span>
+                    <select id="direction">
+                        <option value="right">Right ></option>
+                        <option value="left">Left <</option>
+                        <option value="down">Down v</option>
+                        <option value="up">Up ^</option>
+                    </select>
+                </label>
+                <label for="add-button">
+                    <span>&nbsp;</span>
+                    <button id="add-button">Add</button>
+                </label>
+            </div>
+            <div id="command-list" class="command-list">
+                <ul></ul>
+                <button id="generate-path-btn" class="generate-path-btn hidden">Generate path</button>
+                <div class="action-buttons">
+                    <button id="reset-button" class="reset-game-btn">Reset</button>
+                    <button id="start-game-btn" class="start-game-btn">Start Game</button>
+                </div>
+            </div>
+        </div>
+        <div id="gameBoard" class="game-board">
+            <img src="/static/jupo.png" alt="jupo" class="jupo"/>
+            <img src="/static/slogan.png" alt="jupo" class="slogan"/>
+            <div id="game-info-box" class="game-info-box"></div>
+        </div>
+        <div id="debug">
+            <div id="debug-info">
+                <button id="debug-button">Simulate</button>
+            </div>
+            <div id="debug-path"></div>
+        </div>
+    </div>
+</div>
+<script src="bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+/* Rajdhani-Bold */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Rajdhani-Light */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-Light.ttf') format('truetype');
+    font-weight: 300; /* 300 ist die übliche Angabe für 'light' Schriftarten */
+    font-style: normal;
+}
+
+/* Rajdhani-Medium */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-Medium.ttf') format('truetype');
+    font-weight: 500; /* 500 ist die übliche Angabe für 'medium' Schriftarten */
+    font-style: normal;
+}
+
+/* Rajdhani-Regular */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Rajdhani-SemiBold */
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('/static/Rajdhani-SemiBold.ttf') format('truetype');
+    font-weight: 600; /* 600 ist die übliche Angabe für 'semibold' Schriftarten */
+    font-style: normal;
+}
+
+/* Anwendung der Schriftart auf die gesamte Anwendung */
+
+* {
+    font-family: 'Rajdhani', sans-serif !important;
+}
+
+body {
+    font-weight: 600;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column; /* Diese Eigenschaft wurde hinzugefügt, um den Button über dem Spielbrett anzuzeigen */
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    --u: 2.5vmin;
+    --c1: #ddd;
+    --c2: #ccc;
+    --pz: calc(var(--u) * 0.65), #fff0 calc(calc(var(--u) * 0.65) + 1px);
+    --gp: 50%/ calc(var(--u) * 10) calc(var(--u) * 10);
+    background: radial-gradient(circle at 55% 25%, var(--c2) var(--pz)) var(--gp),
+    radial-gradient(circle at 75% 45%, var(--c2) var(--pz)) var(--gp),
+    radial-gradient(circle at 5% 75%, var(--c2) var(--pz)) var(--gp),
+    radial-gradient(circle at 25% 55%, var(--c2) var(--pz)) var(--gp),
+    radial-gradient(circle at 55% 75%, var(--c1) var(--pz)) var(--gp),
+    radial-gradient(circle at 75% 95%, var(--c1) var(--pz)) var(--gp),
+    radial-gradient(circle at 5% 25%, var(--c1) var(--pz)) var(--gp),
+    radial-gradient(circle at 25% 5%, var(--c1) var(--pz)) var(--gp),
+    conic-gradient(from 0deg at 50% 50%, var(--c1) 0 25%, var(--c2) 0 50%, var(--c1) 0 75%, var(--c2) 0 100%) var(--gp);
+
+}
+
+.wrapper {
+    margin: auto;
+}
+
+#gameBoard {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background-color: #e1e1e1;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.path {
+    background-color: #87CEEB; /* Gökyüzü mavi */
+    border: 1px solid #4682B4; /* Daha koyu çelik mavi */
+}
+
+.cell-id {
+    position: absolute;
+    opacity: 0.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 100%;
+    height: 100%;
+    font-size: 10px;
+}
+
+.finish {
+    background-color: #FFD700; /* Altın */
+    border: 1px solid #6b5215; /* Altın */
+}
+
+#character {
+    position: relative;
+    transition: top 0.5s, left 0.5s; /* Hier wird die Animation hinzugefügt */
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+button {
+    padding: 2px 15px;
+    font-size: 16px;
+    background-color: #FFD700;
+    color: #000;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: solid 1px #c89a28;
+}
+
+button:hover {
+    color: #787676;
+}
+
+.dice-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.moveButton {
+    padding: 10px;
+    margin-right: 10px; /* zar sayısı ile arasında biraz boşluk bırakmak için */
+}
+
+.dice-result {
+    font-size: 20px; /* Font boyutunu ayarlayabilirsiniz */
+}
+
+
+.board-wrapper {
+    display: flex;
+
+}
+
+.command {
+    background: #E1E1E1;
+    border: solid 10px #fff;
+    margin-right: 2px;
+    border-radius: 8px;
+    padding: 10px;
+    max-width: 240px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.level-2 .command {
+    max-width: 340px;
+}
+
+.command h2 {
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 0;
+}
+
+.command p {
+    font-size: 12px;
+    margin: 0;
+    padding: 8px 0;
+}
+
+.command-form {
+    display: flex;
+}
+
+.command-form input,
+.command-form select {
+    border: solid 1px #ccc;
+    background: #ffffff;
+    padding: 2px;
+    font-weight: bold;
+    width: 50px;
+}
+
+.command-form input {
+    text-align: center;
+    font-size: 16px;
+}
+
+.command-form select {
+    width: 70px;
+    padding-right: 5px;
+}
+
+.command-form label {
+    font-size: 12px;
+}
+
+.command-form label span {
+    font-size: 10px;
+}
+
+.command-list {
+    margin-top: 16px;
+    width: 240px;
+}
+
+.command-list ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    height: 310px;
+    overflow: auto;
+}
+
+.command-list ul li {
+    padding: 5px;
+    margin: 1px 0;
+    list-style: none;
+    background: #fff;
+    font-size: 14px;
+
+}
+
+.command-list ul li.step.checked {
+    background: darkseagreen;
+}
+
+.command-list ul li.step.error {
+    background: #ff0000;
+    color: #fff;
+}
+
+.command-list ul li.step.checked:before {
+    background-image: url("/static/checked.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 20px;
+    background: darkseagreen;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.reset-game-btn,
+.start-game-btn {
+    padding: 2px;
+    margin-top: 10px;
+    width: 48%;
+    display: none;
+}
+
+.jupo {
+    position: absolute;
+    z-index: 1001;
+    width: 143px;
+    right: 0;
+    top: -158px;
+}
+
+.slogan {
+    position: absolute;
+    z-index: 1000;
+    width: 230px;
+    left: -270px;
+    top: -91px;
+}
+
+.game-info-box {
+    position: absolute;
+    z-index: 1000;
+    width: 360px;
+    left: 0;
+    top: -149px;
+    background: #E1E1E1;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: solid 10px #fff;
+}
+
+.game-info-box h3 {
+    margin: 0;
+}
+
+.level-selector {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.timer-container {
+    font-size: 1.5em;
+    color: #d9534f;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    border-bottom: solid 1px #d9534f;
+}
+
+#timer {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.generate-path-btn {;
+    z-index: 10;
+    padding: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.command-remove {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    background: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.game-over-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-size: 5rem;
+    color: white;
+}

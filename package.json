@@ -1,0 +1,26 @@
+{
+  "name": "labirent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/modules/game.js",
+  "scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/7Style/eu-learn-project-puzzle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/7Style/eu-learn-project-puzzle/issues"
+  },
+  "homepage": "https://github.com/7Style/eu-learn-project-puzzle#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
