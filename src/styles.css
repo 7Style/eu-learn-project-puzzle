@@ -102,6 +102,19 @@ body {
     border: 1px solid #4682B4; /* Daha koyu çelik mavi */
 }
 
+.path.obstacle:before {
+    content: "*";
+    background-color: #b31a03 !important;
+    border: 1px solid #410900 !important;
+    color: #E1E1E1;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+
+}
+
 .cell-id {
     position: absolute;
     opacity: 0.2;
@@ -368,17 +381,35 @@ button:hover {
     cursor: pointer;
 }
 
-.game-over-overlay {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(255, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.game-over-overlay,
+.notice-overlay{
+    position: absolute;
     z-index: 1000;
-    font-size: 5rem;
-    color: white;
+    width: 360px;
+    left: 61px;
+    top: 200px;
+    background: #E1E1E1;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 100px #f70000;
+    border: solid 10px #f70000;
+    text-align: center;
+    opacity: 0.87777;
 }
+
+.notice-overlay{
+    box-shadow: 0 4px 100px #6b5215;
+    border: solid 10px #FFD700;
+}
+.game-over-overlay h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.game-over-overlay p {
+    margin: 0;
+    padding: 10px 0 ;
+    font-size: 16px;
+}
+

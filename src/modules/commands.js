@@ -113,7 +113,7 @@ export class Commands {
     addCommand() {
         if (this.gameBoardInstance.level > 1 && this.gameBoardInstance.isTimeUp()) {
             console.log('Zeit ist abgelaufen, keine weiteren Befehle erlaubt.');
-           // return;
+            return;
         }
 
         console.log('add command');

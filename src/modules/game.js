@@ -14,7 +14,7 @@ export class Game {
         this.command.startGameButtonListener()
         this.command.resetButtonListener()
         // todo: remove this
-        this.__debug();
+        // this.__debug();
     }
 
     create() {
@@ -22,10 +22,11 @@ export class Game {
         for (let i = 0; i < 100; i++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
-            cell.innerHTML = `<div class="cell-id">${i + 1}</div>`;
+            cell.innerHTML = `<div class="cell-id">${i}</div>`;
 
             if (this.pathCells.includes(i)) {
                 cell.classList.add('path');
+                cell.classList.add('path_id_' + i);
                 if (i === this.pathCells[this.pathCells.length - 1]) {
                     cell.classList.add('finish');
                 }
@@ -39,6 +40,7 @@ export class Game {
 
         this.command.run();
         const levelSelector = this.level - 1;
+        console.log('levelSelector', this.level, levelSelector)
         this.command.setGameInstructionsText(Config.LEVEL_INSTRUCTIONS[levelSelector].title, Config.LEVEL_INSTRUCTIONS[levelSelector].text);
     }
 
@@ -73,7 +75,6 @@ export class Game {
     }
 
     gameOver() {
-
         const gameOver = document.getElementById('gameOverOverlay');
 
         if (gameOver) {
@@ -81,10 +82,10 @@ export class Game {
         }
 
         const overlay = document.createElement('div');
-        overlay.textContent = 'Game Over';
+        overlay.innerHTML = `<div class="game-over"><h2>Game Over</h2><p>Game over. Thank you for playing!</p></div>`;
         overlay.classList.add('game-over-overlay');
         overlay.id = 'gameOverOverlay';
-        document.body.appendChild(overlay);
+        this._getBoardContainer().appendChild(overlay);
         setTimeout(() => {
             const overlayToRemove = document.getElementById('gameOverOverlay');
             if (overlayToRemove) {
@@ -95,7 +96,6 @@ export class Game {
 
         this.markCommandStepAsChecked(true);
         this.reset();
-
     }
 
     reset() {
@@ -109,8 +109,16 @@ export class Game {
 
     markCommandStepAsChecked(error) {
         const commandList = document.getElementById('command-list');
+        if (!commandList) {
+            console.log('command-list not found');
+            return;
+        }
         const commandListItems = commandList.querySelectorAll('li');
         const currentCommandListItem = commandListItems[this.currentInstructionIndex];
+        if (!currentCommandListItem) {
+            console.log('currentCommandListItem not found');
+            return;
+        }
         currentCommandListItem.classList.add(error ? 'error' : 'checked');
     }
 
@@ -202,8 +210,13 @@ export class Game {
 
         // Check if the character is on the finish cell
         const targetCell = document.querySelectorAll('.cell')[this.currentPosition];
-        if (instructions.length === (this.currentInstructionIndex + 1) && targetCell.classList.contains('finish')) {
-            this.gameOver()
+        console.log('targetCell', document.querySelectorAll('.cell')[this.currentPosition])
+
+        console.log('instructions.length === (this.currentInstructionIndex + 1)', instructions.length, (this.currentInstructionIndex + 1))
+
+        if (instructions.length === (this.currentInstructionIndex) && !targetCell.classList.contains('finish')) {
+            console.log('You have not reached the finish cell')
+            // this.gameOver()
             return;
         }
 
@@ -223,6 +236,13 @@ export class Game {
         }
     }
 
+    showNotices(content = '') {
+        const notice = document.createElement('div');
+        notice.innerHTML = `<div class="notice-content">${content}</div>`;
+        notice.classList.add('notice-overlay');
+        this._getBoardContainer().appendChild(notice);
+    }
+
     __debug() {
         const element = document.getElementById('debug-button');
         if (!element) {
@@ -235,7 +255,7 @@ export class Game {
             this.store.storeCommands(commands)
             this.generateCommandsFromPath(this.pathCells);
             this.command.renderCommands();
-            this.startGame()
+            // this.startGame()
         })
     }
 }
