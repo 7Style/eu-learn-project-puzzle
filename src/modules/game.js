@@ -9,7 +9,7 @@ export class Game {
         this.pathCells = Config.DEFAULT_PATHS_CELL
         this.store = storage
         this.command = new Commands(this, this.store);
-        this.level = storage.getLevel();
+        this.level = storage.getLevel() || 1;
         this.command.addButtonListener();
         this.command.startGameButtonListener()
         this.command.resetButtonListener()
@@ -70,7 +70,6 @@ export class Game {
                 this._validateInstructions(instructions, makeMove)
             }
         };
-        debugger;
         makeMove();
     }
 
@@ -216,7 +215,10 @@ export class Game {
 
         if (instructions.length === (this.currentInstructionIndex) && !targetCell.classList.contains('finish')) {
             console.log('You have not reached the finish cell')
-            // this.gameOver()
+
+            if (this.level === 1) {
+                this.gameOver()
+            }
             return;
         }
 
