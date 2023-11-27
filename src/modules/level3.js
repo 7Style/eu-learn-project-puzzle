@@ -6,6 +6,7 @@ export class Level3 extends Level2 {
     constructor(storage, command) {
         super(storage, command);
         this.timeLimit = Config.LEVEL_3_TIME_LIMIT;
+        this.timer = null;
     }
 
     startGame() {

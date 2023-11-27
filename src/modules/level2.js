@@ -68,27 +68,20 @@ export class Level2 extends Game {
 
 
     generateRandomPath() {
-        const pathLength = this.calculatePathComplexity();
-        this.setTimeLimitBasedOnComplexity(pathLength);
+        this.setTimeLimitBasedOnComplexity();
         this.createRandomPath();
         this.reloadGameBoard();
-
         this.command.domElements().generatePathButton.style.display = 'none';
         this.command.domElements().commandList.classList.remove('flex-center');
         this.command.domElements().commandForm.classList.remove('hidden');
     }
 
-    calculatePathComplexity() {
-        return Config.LEVEL_TIME_LIMIT
-        // Todo calculate path complexity based on the path cells
-    }
 
     createRandomPath() {
         this.pathCells = Config.PATHS_LEVEL_2
     }
 
-    setTimeLimitBasedOnComplexity(length) {
-        this.timeLimit = length;
+    setTimeLimitBasedOnComplexity() {
         this.startTimer();
     }
 
