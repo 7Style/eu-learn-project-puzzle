@@ -40,7 +40,8 @@ export class Level3 extends Level2 {
         if (!character) {
             console.log('Kein Charakter gefunden');
             return;
-        };
+        }
+        ;
 
         const copyCharacter = character.cloneNode(true);
         character.remove();
@@ -95,8 +96,15 @@ export class Level3 extends Level2 {
         const character = document.getElementById('character');
         const targetCell = document.querySelectorAll('.cell')[targetIndex];
         if (!targetCell) return; // Sicherstellen, dass die Zelle existiert
+
+
+        setTimeout(() => {
+            targetCell.classList.add('show-character');
+        }, 0);
+
         targetCell.appendChild(character)
-        const newCell = document.querySelectorAll('.cell')[this.currentPosition];
+
+
         if (targetCell.classList.contains('obstacle')) {
             console.log('Der Charakter hat den unerlaubten Bereich eingetreten.');
             this.gameOver();

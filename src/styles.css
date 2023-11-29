@@ -93,13 +93,24 @@ body {
     height: 100%;
     border-radius: 4px;
     background-color: #e1e1e1;
-    transition: background-color 0.2s;
     position: relative;
+    transition: background-color 0.5s ease; /* Animiert die Hintergrundfarbe */
 }
 
+
+.cell .character {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.cell.show-character .character {
+    opacity: 1;
+}
+
+
 .path {
-    background-color: #87CEEB; /* Gökyüzü mavi */
-    border: 1px solid #4682B4; /* Daha koyu çelik mavi */
+    background-color: #87CEEB;
+    border: 1px solid #4682B4;
 }
 
 .path.obstacle:before {
@@ -128,13 +139,13 @@ body {
 }
 
 .finish {
-    background-color: #FFD700; /* Altın */
-    border: 1px solid #6b5215; /* Altın */
+    background-color: #FFD700;
+    border: 1px solid #6b5215;
 }
 
 #character {
     position: relative;
-    transition: top 0.5s, left 0.5s; /* Hier wird die Animation hinzugefügt */
+    transition: top 0.5s, left 0.5s;
     width: 100%;
     height: 100%;
     border-radius: 4px;
@@ -172,11 +183,11 @@ button:hover {
 
 .moveButton {
     padding: 10px;
-    margin-right: 10px; /* zar sayısı ile arasında biraz boşluk bırakmak için */
+    margin-right: 10px;
 }
 
 .dice-result {
-    font-size: 20px; /* Font boyutunu ayarlayabilirsiniz */
+    font-size: 20px;
 }
 
 
@@ -202,7 +213,6 @@ button:hover {
 .command h2 {
     font-size: 16px;
     margin: 0;
-    margin-bottom: 0;
 }
 
 .command p {
@@ -382,7 +392,7 @@ button:hover {
 }
 
 .game-over-overlay,
-.notice-overlay{
+.notice-overlay {
     position: absolute;
     z-index: 1000;
     width: 360px;
@@ -397,10 +407,11 @@ button:hover {
     opacity: 0.87777;
 }
 
-.notice-overlay{
+.notice-overlay {
     box-shadow: 0 4px 100px #6b5215;
     border: solid 10px #FFD700;
 }
+
 .game-over-overlay h2 {
     margin: 0;
     font-size: 20px;
@@ -409,7 +420,7 @@ button:hover {
 
 .game-over-overlay p {
     margin: 0;
-    padding: 10px 0 ;
+    padding: 10px 0;
     font-size: 16px;
 }
 
