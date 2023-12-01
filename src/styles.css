@@ -197,6 +197,7 @@ button:hover {
 }
 
 .command {
+    position: relative;
     background: #E1E1E1;
     border: solid 10px #fff;
     margin-right: 2px;
@@ -392,7 +393,8 @@ button:hover {
 }
 
 .game-over-overlay,
-.notice-overlay {
+.notice-overlay,
+.error-overlay {
     position: absolute;
     z-index: 1000;
     width: 360px;
@@ -407,9 +409,23 @@ button:hover {
     opacity: 0.87777;
 }
 
+.error-content {
+
+}
 .notice-overlay {
     box-shadow: 0 4px 100px #6b5215;
     border: solid 10px #FFD700;
+}
+.error-overlay {
+    box-shadow: 0 4px 10px #6b5215;
+    border: solid 10px #FFD700;
+}
+
+.error-overlay .close-button {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    cursor: pointer;
 }
 
 .game-over-overlay h2 {
@@ -453,6 +469,47 @@ button:hover {
     background: #fff;
 }
 
-.level4-info-box {
+.level4-info {
+    position: absolute;
+    z-index: 1000;
+    top: 120px;
+    left: 0;
+    padding: 20px;
+    font-size: 32px;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
+.level4-info-timer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.level4-info-timer span {
+    font-size: 14px !important;
+}
+
+.level4-info p{
+    font-size: 16px;
+}
+
+.level4-info-timer.disabled span {
+    font-size: 14px !important;
+    color: #787676;
+}
+
+.level4-info-timer.disabled input {
+    font-size: 14px !important;
+    color: #787676;
+    background: #d8d8d8;
+    cursor: not-allowed;
+}
+
+.level4-info-timer.disabled button {
+    font-size: 14px !important;
+    color: #a7a7a7;
+    background: #e1e1e1;
+    border: #c8c8c8 solid 1px;
+    cursor: not-allowed;
 }

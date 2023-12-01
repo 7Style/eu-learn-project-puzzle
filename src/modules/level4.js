@@ -1,16 +1,35 @@
 import { Level3 } from './level3'
+import { Config } from './config'
 
 export class Level4 extends Level3 {
   constructor (storage, command) {
     super(storage, command)
     this.command.domElements().generatePathButton.classList.add('hidden')
-    this.pathCells = []
+    this.pathCellCount = 0
   }
 
   create () {
     super.create()
     this.addCellEventListener()
     this.addContextMenuEventListener()
+    this.showInfo()
+  }
+
+  fixCharacterPosition () {
+
+  }
+
+  setCurrentPosition () {
+    const character = document.getElementById('character')
+    if (!character) return
+    const cell = character.closest('.cell')
+    console.log('cell', cell)
+    if (!cell) return
+
+    console.log('setCurrentPosition', cell)
+    console.log(' parseInt(cell.querySelector(\'.cell-id\').textContent)', parseInt(cell.querySelector('.cell-id').textContent))
+
+    this.currentPosition = parseInt(cell.querySelector('.cell-id').textContent)
   }
 
   addCellEventListener () {
@@ -19,6 +38,7 @@ export class Level4 extends Level3 {
       cell.style.cursor = 'pointer'
       cell.addEventListener('click', (event) => {
         this.addToPathCell(event, index)
+        this.hideContextMenu()
       })
     })
   }
@@ -38,9 +58,10 @@ export class Level4 extends Level3 {
   addToPathCell (event, index) {
     console.log('addToPathCell', index)
     const element = event.currentTarget
-    element.classList.contains('path') ? element.classList.remove('path') : element.classList.add('path')
-    this.pathCells.push(index)
 
+    window.jupo_current_cell_element = element
+    element.classList.contains('path') ? element.classList.remove('path') : element.classList.add('path')
+    this.pathCellCount = document.querySelectorAll('.path').length
     // watch
     this.obServer()
   }
@@ -75,9 +96,13 @@ export class Level4 extends Level3 {
     ul.appendChild(li2)
     ul.appendChild(li3)
     ul.appendChild(li4)
+    contextMenu.style.top = `${element.clientY}px`
+    contextMenu.style.left = `${element.clientX}px`
+
     contextMenu.appendChild(ul)
 
     document.getElementById('board-wrapper').appendChild(contextMenu)
+
     this.addContextMenuItemEventListener(element, {
       deleteItem: li,
       addObstacle: li2,
@@ -86,32 +111,51 @@ export class Level4 extends Level3 {
     })
   }
 
+  hideContextMenu = () => {
+    const contextMenu = document.getElementById('context-menu')
+    if (!contextMenu) return
+    contextMenu.remove()
+  }
+
   addContextMenuItemEventListener (domElement, contextMenuItems) {
-    const hideContextMenu = () => {
-      const contextMenu = document.getElementById('context-menu')
-      if (!contextMenu) return
-      contextMenu.remove()
-    }
     const deleteItemListener = (event) => {
-      console.log('deleteItem', event)
       element.classList.remove('path')
-      hideContextMenu()
+      if (element.querySelectorAll('img').length > 0) {
+        document.getElementById('character').remove()
+      }
+
+      if (element.classList.contains('finish')) {
+        element.classList.remove('finish')
+      }
+
+      this.hideContextMenu()
     }
 
     const addObstacleListener = (event) => {
       element.classList.add('obstacle')
-      hideContextMenu()
+      this.hideContextMenu()
     }
 
     const markAsFinishListener = (event) => {
+      if (element.classList.contains('start')) {
+        this.showErrorMessage('Finish can not be start')
+        return
+      }
+
       element.classList.add('finish')
-      hideContextMenu()
+      element.classList.add('path')
+      this.hideContextMenu()
     }
 
     const markAsStartListener = (event) => {
       //
+      if (this.isCharakterOnPath()) {
+        this.showErrorMessage('Start is already set')
+        return
+      }
+
       this.createCharacter(element)
-      hideContextMenu()
+      this.hideContextMenu()
     }
 
     const element = domElement.currentTarget
@@ -122,9 +166,64 @@ export class Level4 extends Level3 {
     contextMenuItems.markAsStart.addEventListener('click', markAsStartListener)
   }
 
+  showInfo () {
+    const element = document.getElementById('level4-info')
+    if (!element) return
+    element.classList.remove('hidden')
+    const infoText = element.querySelector('p')
+    infoText.innerHTML = infoText.innerText.replace('{minCellCount}', Config.LEVEL_4_MIN_CELL_TO_SELECT.toString())
+  }
+
+  isCharakterOnPath () {
+    const character = document.getElementById('character')
+    if (!character) return false
+    const characterCell = character.parentElement
+    return characterCell.classList.contains('path')
+  }
+
+  isFinishOnPath () {
+    const finish = document.querySelector('.finish')
+    if (!finish) return false
+    return finish.classList.contains('path')
+  }
+
   obServer () {
-    if (this.pathCells > 5) {
-      this.command.domElements().generatePathButton.classList.remove('hidden')
+    if (this.pathCellCount >= Config.LEVEL_4_MIN_CELL_TO_SELECT) {
+      document.getElementById('level4-info-label').classList.remove('disabled')
+      document.getElementById('level4-start-button').addEventListener('click', () => {
+        if (!this.isCharakterOnPath()) {
+          console.log('Please select a start cell')
+          this.showErrorMessage('Please select a start cell')
+          return
+        }
+
+        if (!this.isFinishOnPath()) {
+          console.log('Please select a finish cell')
+          this.showErrorMessage('Please select a finish cell')
+          return
+        }
+
+        const timeinput = document.getElementById('level4-info-timer')
+        const time = timeinput.value
+
+        if (isNaN(parseInt(time)) || parseInt(time) < 30) {
+          console.log('Please enter a time greater than 30 seconds')
+          this.showErrorMessage('Please enter a time greater than 30 seconds')
+          return
+        }
+
+        // this.command.showCommandActionButtons()
+        this.command.domElements().commandForm.classList.remove('hidden')
+        this.command.domElements().commandList.classList.remove('flex-center')
+        document.getElementById('level4-info').classList.add('hidden')
+
+        this.setCurrentPosition()
+        this.timeLimit = time
+        this.startTimer()
+      })
+    } else {
+      console.log('Please select at least 2 cells')
+      document.getElementById('level4-info-label').classList.add('disabled')
     }
   }
 }

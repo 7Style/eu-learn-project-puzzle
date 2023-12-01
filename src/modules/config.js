@@ -50,4 +50,6 @@ export class Config {
     Config.LEVEL_3,
     Config.LEVEL_4
   ]
+
+  static LEVEL_4_MIN_CELL_TO_SELECT = 2
 }

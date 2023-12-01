@@ -36,6 +36,8 @@ export class Level3 extends Level2 {
   }
 
   fixCharacterPosition () {
+    console.log('fixCharacterPosition called in level3.js')
+
     const character = document.querySelector('.cell #character')
     if (!character) {
       console.log('Kein Charakter gefunden')
@@ -59,6 +61,7 @@ export class Level3 extends Level2 {
   }
 
   setCurrentPosition () {
+    console.log('setCurrentPosition called in level3.js')
     const character = document.getElementById('character')
     if (!character) return
     const cell = character.closest('.cell')

@@ -242,6 +242,31 @@ export class Game {
     this._getBoardContainer().appendChild(notice)
   }
 
+  showErrorMessage (content = '') {
+    if (document.querySelector('.error-overlay')) {
+      return
+    }
+
+    const errorMessage = document.createElement('div')
+    errorMessage.innerHTML = `<div class="error-content">${content}</div>`
+    errorMessage.classList.add('error-overlay')
+    const closeButton = document.createElement('button')
+    closeButton.classList.add('close-button')
+    closeButton.textContent = 'X'
+    closeButton.addEventListener('click', () => {
+      errorMessage.remove()
+    })
+    errorMessage.appendChild(closeButton)
+    this._getBoardContainer().appendChild(errorMessage)
+  }
+
+  removeErrorMessage () {
+    const notice = document.querySelector('.error-overlay')
+    if (notice) {
+      notice.remove()
+    }
+  }
+
   __debug () {
     const element = document.getElementById('debug-button')
     if (!element) {

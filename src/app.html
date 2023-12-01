@@ -51,6 +51,20 @@
                     <button id="start-game-btn" class="start-game-btn">Start Game</button>
                 </div>
             </div>
+
+            <div class="level4-info hidden command-form" id="level4-info">
+                <p>
+                    Please mark at least {minCellCount} cells. Use the right mouse button to display additional options.
+                </p>
+
+                <label class="level4-info-timer disabled" id="level4-info-label" for="level4-info-timer">
+                    <span>Time in seconds</span>
+                    <input id="level4-info-timer">
+                    <button id="level4-start-button">Start</button>
+                </label>
+
+            </div>
+
         </div>
         <div id="gameBoard" class="game-board">
             <img src="/static/jupo.png" alt="jupo" class="jupo"/>
