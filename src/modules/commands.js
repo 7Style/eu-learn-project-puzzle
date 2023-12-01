@@ -106,6 +106,7 @@ export class Commands {
     element.addEventListener('click', () => {
       this.saveCommands()
       this.gameBoardInstance.startGame()
+      this.hideCommandActionButtons()
     })
   }
 
