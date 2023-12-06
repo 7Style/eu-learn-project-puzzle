@@ -45,7 +45,7 @@ Feel free to modify the code to add new features, change game mechanics, or upda
 Contributions to the game are welcome! If you have ideas for new features or improvements, please feel free to fork the repository and submit a pull request.
 
 ## License
-[Specify License Here]
+no license
 
 ## Acknowledgements
 - Thanks to all contributors and developers who have worked on this project.
