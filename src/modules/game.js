@@ -137,6 +137,10 @@ export class Game {
     if (!this._getBoardContainer().contains(character)) {
       this._getBoardContainer().appendChild(character)
     }
+
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
   }
 
   generateCommandsFromPath (path) {

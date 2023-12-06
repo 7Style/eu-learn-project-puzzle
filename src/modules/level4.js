@@ -56,7 +56,11 @@ export class Level4 extends Level3 {
   }
 
   addToPathCell (event, index) {
-    console.log('addToPathCell', index)
+    if (this.timer) {
+      this.showErrorMessage('You can not select a cell after the game has started')
+      return
+    }
+
     const element = event.currentTarget
 
     window.jupo_current_cell_element = element
@@ -185,6 +189,13 @@ export class Level4 extends Level3 {
     const finish = document.querySelector('.finish')
     if (!finish) return false
     return finish.classList.contains('path')
+  }
+
+  _moveCharacter (targetIndex) {
+    super._moveCharacter(targetIndex)
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
   }
 
   obServer () {
